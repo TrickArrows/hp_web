@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>hp_books</title>
+</head>
+<body>
+	<h2>Wizarding World</h2>
+	<h4>HEADLINE</h4>
+	<div class="img-main">
+		<img src="{% static 'images/hogwarts.jpg' %}" width="200" height="150">
+	</div>
+	<p>'There is a plot, Harry Potter. A plot to make most terrible things happen at Hogwarts School of Witchcraft and Wizardry this year.'</p>
+	
+	<div>
+		<a href="accounts/register"><b>Sign Up</b></a>
+
+		{% if user.is_authenticated %}
+
+		<h5>hello, {{user.username}} ! </h5>
+		<a href="accounts/logout"><b>Logout</b></a>
+
+		{% else %}
+
+		<a href="accounts/login"><b>Log In</b></a>
+
+		{% endif %}
+	</div>
+	<hr>
+	{% if user.is_authenticated %}
+	<div class="headline" align="center" >Harry Potter Books</div>
+	<hr>
+	{% for dest in dests %}
+	<div class="container">
+		<h4>{{dest.name}}</h4>
+		<div class="thumb">
+			<img src= "{{dest.image.url}}" height="100" width="150" alt="">
+		</div>
+
+		<div class="price"><h5>Rs: {{dest.price}}/- </h5></div>
+
+		{% if dest.offer %}
+		<div class="off">
+			<h4>Offer Prize</h4>
+		</div>
+		{% endif %}
+
+		<b><u>Description</u></b>
+		<div class="discription">{{dest.desc}}</div><br>
+		<div class="buy-button">
+			<small>
+            <a href="#">Add To Cart</a><br>
+            <a href="#">Click Here For Buy</a>
+        	</small>
+        </div>
+		<hr>
+	</div>
+	{% endfor %}
+	{% else %}
+	<h3> Please Login For Books </h3>
+	{% endif %}
+	<footer>
+		<h5>Design: TrickArrows </h5>
+	</footer>
+</body>
+</html>
